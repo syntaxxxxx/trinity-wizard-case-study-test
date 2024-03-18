@@ -6,22 +6,6 @@ import com.hightech.cryptoapp.domain.Unexpected
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-data class LocalAvenger(
-    val id: String,
-    val name: String,
-    val rating: String,
-    val image: Int
-)
-
-sealed class LocalResult {
-    data class Success(val data: List<LocalAvenger>) : LocalResult()
-    data class Failure(val exception: Exception) : LocalResult()
-}
-
-interface AvengerStore {
-    fun get(): Flow<LocalResult>
-}
-
 class LoadAvengerLocalUseCase(private val store: AvengerStore) {
     fun load(): Flow<AvengerResult> = flow {
         store.get().collect { result ->
