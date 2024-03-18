@@ -6,13 +6,6 @@ import com.hightech.cryptoapp.local.LocalResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-data class LocalAvengerEntity(
-    val id: String,
-    val name: String,
-    val rating: String,
-    val image: Int
-)
-
 val localAvengers = listOf(
     LocalAvengerEntity(
         id = "1",
