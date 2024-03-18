@@ -112,6 +112,50 @@ class LoadAvengerRemoteUseCaseTest {
         )
     }
 
+    @Test
+    fun testLoadDeliversAvengersOnSuccessWithAvengers() = runBlocking {
+        val localAvenger = listOf(
+            LocalAvenger(
+                id = "1",
+                name = "Iron Man",
+                rating = "9.5",
+                image = 0
+            ),
+            LocalAvenger(
+                id = "2",
+                name = "Captain America",
+                rating = "9.0",
+                image = 1
+            )
+        )
+
+        val avengers = listOf(
+            Avenger(
+                id = "1",
+                name = "Iron Man",
+                rating = "9.5",
+                image = 0
+            ),
+            Avenger(
+                id = "2",
+                name = "Captain America",
+                rating = "9.0",
+                image = 1
+            )
+        )
+
+        expect(
+            sut = sut,
+            expectedResult = AvengerResult.Success(avengers = avengers),
+            action = {
+                every {
+                    store.get()
+                } returns flowOf(LocalResult.Success(data = localAvenger))
+            },
+            exactly = 1
+        )
+    }
+
     @After
     fun tearDown() {
         clearAllMocks()
