@@ -5,11 +5,11 @@ import kotlin.Exception
 
 class Unexpected: Exception()
 
-sealed class ContactResult {
-    data class Success(val contacts: List<Avenger>) : ContactResult()
-    data class Failure(val exception: Exception) : ContactResult()
+sealed class AvengerResult {
+    data class Success(val contacts: List<Avenger>) : AvengerResult()
+    data class Failure(val exception: Exception) : AvengerResult()
 }
 
 interface LoadContactsUseCase {
-    fun load(): Flow<ContactResult>
+    fun load(): Flow<AvengerResult>
 }
