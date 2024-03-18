@@ -83,47 +83,70 @@ class LoadAvengerRemoteUseCaseTest {
             store.get()
         } returns flowOf(LocalResult.Failure(Exception()))
 
-        sut.load().test {
-            val result = awaitItem()
-            if (result is AvengerResult.Failure) {
-                assertEquals(Unexpected()::class.java, result.exception::class.java)
-            }
-            awaitComplete()
-        }
-
-        verify(exactly = 1) {
-            store.get()
-        }
-
-        confirmVerified(store)
+        expect(
+            sut = sut,
+            expectedResult = Unexpected(),
+            action = {
+                every {
+                    store.get()
+                } returns flowOf(LocalResult.Failure(Exception()))
+            },
+            exactly = 1
+        )
     }
 
     @Test
     fun testLoadDeliversEmptyAvengersOnSuccessWithEmptyAvengers() = runBlocking {
-        val emptyRemoteContacts = emptyList<LocalAvenger>()
-        val contacts = emptyList<Avenger>()
+        val emptyLocalAvengers = emptyList<LocalAvenger>()
+        val emptyAvengers = emptyList<Avenger>()
 
-        every {
-            store.get()
-        } returns flowOf(LocalResult.Success(data = emptyRemoteContacts))
-
-        sut.load().test {
-            val result = awaitItem()
-            if (result is AvengerResult.Success) {
-                assertEquals(contacts, result.avengers)
-            }
-            awaitComplete()
-        }
-
-        verify(exactly = 1) {
-            store.get()
-        }
-
-        confirmVerified(store)
+        expect(
+            sut = sut,
+            expectedResult = AvengerResult.Success(avengers = emptyAvengers),
+            action = {
+                every {
+                    store.get()
+                } returns flowOf(LocalResult.Success(data = emptyLocalAvengers))
+            },
+            exactly = 1
+        )
     }
 
     @After
     fun tearDown() {
         clearAllMocks()
+    }
+
+    private fun expect(
+        sut: LoadAvengerLocalUseCase,
+        expectedResult: Any,
+        action: () -> Unit,
+        exactly: Int = -1,
+    ) = runBlocking {
+        action()
+
+        sut.load().test {
+            when (val receivedResult = awaitItem()) {
+                is AvengerResult.Success -> {
+                    assertEquals(
+                        expectedResult,
+                        receivedResult
+                    )
+                }
+                is AvengerResult.Failure -> {
+                    assertEquals(
+                        expectedResult::class.java,
+                        receivedResult.exception::class.java
+                    )
+                }
+            }
+            awaitComplete()
+        }
+
+        verify(exactly = exactly) {
+            store.get()
+        }
+
+        confirmVerified(store)
     }
 }
