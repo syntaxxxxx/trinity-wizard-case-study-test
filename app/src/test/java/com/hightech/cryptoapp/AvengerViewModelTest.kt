@@ -60,4 +60,20 @@ class AvengerViewModelTest {
 
         confirmVerified(useCase)
     }
+
+    @Test
+    fun testLoadTwiceRequestsDataTwice() = runBlocking {
+        every {
+            useCase.load()
+        } returns flowOf()
+
+        sut.loadAvengers()
+        sut.loadAvengers()
+
+        verify(exactly = 2) {
+            useCase.load()
+        }
+
+        confirmVerified(useCase)
+    }
 }
