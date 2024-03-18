@@ -50,6 +50,27 @@ class LoadAvengerRemoteUseCaseTest {
         confirmVerified(store)
     }
 
+    @Test
+    fun testLoadTwiceRequestsDataTwice() = runBlocking {
+        every {
+            store.get()
+        } returns flowOf()
+
+        sut.load().test {
+            awaitComplete()
+        }
+
+        sut.load().test {
+            awaitComplete()
+        }
+
+        verify(exactly = 2) {
+            store.get()
+        }
+
+        confirmVerified(store)
+    }
+
     @After
     fun tearDown() {
         clearAllMocks()
