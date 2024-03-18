@@ -1,5 +1,6 @@
 package com.hightech.cryptoapp.infra
 
+import com.hightech.cryptoapp.R
 import com.hightech.cryptoapp.local.AvengerStore
 import com.hightech.cryptoapp.local.LocalAvenger
 import com.hightech.cryptoapp.local.LocalResult
@@ -9,15 +10,21 @@ import kotlinx.coroutines.flow.flow
 val localAvengers = listOf(
     LocalAvengerEntity(
         id = "1",
-        name = "Iron Man",
-        rating = "9.5",
-        image = 0
+        name = "Superman",
+        rating = "Very Good",
+        image = R.drawable.superman
     ),
     LocalAvengerEntity(
         id = "2",
-        name = "Captain America",
-        rating = "9.0",
-        image = 1
+        name = "Ironman",
+        rating = "Normal",
+        image = R.drawable.avenger_ironman
+    ),
+    LocalAvengerEntity(
+        id = "3",
+        name = "Hulk",
+        rating = "Awesome",
+        image = R.drawable.avenger_hulk
     )
 )
 

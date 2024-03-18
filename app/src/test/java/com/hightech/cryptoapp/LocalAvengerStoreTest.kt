@@ -22,15 +22,21 @@ class LocalAvengerStoreTest {
         val localAvengers = listOf(
             LocalAvenger(
                 id = "1",
-                name = "Iron Man",
-                rating = "9.5",
-                image = 0
+                name = "Superman",
+                rating = "Very Good",
+                image = R.drawable.superman
             ),
             LocalAvenger(
                 id = "2",
-                name = "Captain America",
-                rating = "9.0",
-                image = 1
+                name = "Ironman",
+                rating = "Normal",
+                image = R.drawable.avenger_ironman
+            ),
+            LocalAvenger(
+                id = "3",
+                name = "Hulk",
+                rating = "Awesome",
+                image = R.drawable.avenger_hulk
             )
         )
 
