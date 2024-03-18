@@ -104,16 +104,33 @@ class AvengerViewModelTest {
     }
 
     @Test
-    fun testLoadUnexpectedShowsUnexpectedError() = runBlocking {
-        every {
-            useCase.load()
-        } returns flowOf(AvengerResult.Failure(Unexpected()))
+    fun testLoadUnexpectedShowsUnexpectedError() {
+        expect(
+            sut = sut,
+            expectedLoadingResult = false,
+            expectedFailedResult = "Unexpected Error",
+            action = {
+                every {
+                    useCase.load()
+                } returns flowOf(AvengerResult.Failure(Unexpected()))
+            }
+        )
+    }
+
+    private fun expect(
+        sut: AvengerViewModel,
+        expectedLoadingResult: Boolean,
+        expectedFailedResult: String,
+        action: () -> Unit
+    ) = runBlocking {
+        action()
 
         sut.loadAvengers()
 
         sut.uiState.take(1).test {
             val receivedResult = awaitItem()
-            Assert.assertEquals("Unexpected Error", receivedResult.failed)
+            Assert.assertEquals(expectedLoadingResult, receivedResult.isLoading)
+            Assert.assertEquals(expectedFailedResult, receivedResult.failed)
             awaitComplete()
         }
 
