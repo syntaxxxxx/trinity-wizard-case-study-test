@@ -1,9 +1,13 @@
 package com.hightech.cryptoapp
 
 import app.cash.turbine.test
+import com.hightech.cryptoapp.domain.Avenger
+import com.hightech.cryptoapp.domain.AvengerResult
 import com.hightech.cryptoapp.domain.Unexpected
 import com.hightech.cryptoapp.local.AvengerStore
 import com.hightech.cryptoapp.local.LoadAvengerLocalUseCase
+import com.hightech.cryptoapp.local.LocalAvenger
+import com.hightech.cryptoapp.local.LocalResult
 import io.mockk.clearAllMocks
 import io.mockk.confirmVerified
 import io.mockk.every
@@ -77,10 +81,37 @@ class LoadAvengerRemoteUseCaseTest {
     fun testLoadDeliversUnexpectedError() = runBlocking {
         every {
             store.get()
-        } returns flowOf(Exception())
+        } returns flowOf(LocalResult.Failure(Exception()))
 
         sut.load().test {
-            assertEquals(Unexpected::class.java, awaitItem()::class.java)
+            val result = awaitItem()
+            if (result is AvengerResult.Failure) {
+                assertEquals(Unexpected()::class.java, result.exception::class.java)
+            }
+            awaitComplete()
+        }
+
+        verify(exactly = 1) {
+            store.get()
+        }
+
+        confirmVerified(store)
+    }
+
+    @Test
+    fun testLoadDeliversEmptyAvengersOnSuccessWithEmptyAvengers() = runBlocking {
+        val emptyRemoteContacts = emptyList<LocalAvenger>()
+        val contacts = emptyList<Avenger>()
+
+        every {
+            store.get()
+        } returns flowOf(LocalResult.Success(data = emptyRemoteContacts))
+
+        sut.load().test {
+            val result = awaitItem()
+            if (result is AvengerResult.Success) {
+                assertEquals(contacts, result.avengers)
+            }
             awaitComplete()
         }
 

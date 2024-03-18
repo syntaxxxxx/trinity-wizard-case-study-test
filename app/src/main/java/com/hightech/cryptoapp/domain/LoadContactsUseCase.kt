@@ -6,7 +6,7 @@ import kotlin.Exception
 class Unexpected: Exception()
 
 sealed class AvengerResult {
-    data class Success(val contacts: List<Avenger>) : AvengerResult()
+    data class Success(val avengers: List<Avenger>) : AvengerResult()
     data class Failure(val exception: Exception) : AvengerResult()
 }
 
