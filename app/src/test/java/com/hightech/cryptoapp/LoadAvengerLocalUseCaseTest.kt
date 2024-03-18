@@ -1,6 +1,7 @@
 package com.hightech.cryptoapp
 
 import app.cash.turbine.test
+import com.hightech.cryptoapp.domain.Unexpected
 import com.hightech.cryptoapp.local.AvengerStore
 import com.hightech.cryptoapp.local.LoadAvengerLocalUseCase
 import io.mockk.clearAllMocks
@@ -11,6 +12,7 @@ import io.mockk.verify
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -65,6 +67,24 @@ class LoadAvengerRemoteUseCaseTest {
         }
 
         verify(exactly = 2) {
+            store.get()
+        }
+
+        confirmVerified(store)
+    }
+
+    @Test
+    fun testLoadDeliversUnexpectedError() = runBlocking {
+        every {
+            store.get()
+        } returns flowOf(Exception())
+
+        sut.load().test {
+            assertEquals(Unexpected::class.java, awaitItem()::class.java)
+            awaitComplete()
+        }
+
+        verify(exactly = 1) {
             store.get()
         }
 

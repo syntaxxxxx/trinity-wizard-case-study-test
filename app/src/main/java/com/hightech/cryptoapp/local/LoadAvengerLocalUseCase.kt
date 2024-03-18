@@ -1,6 +1,6 @@
 package com.hightech.cryptoapp.local
 
-import com.hightech.cryptoapp.domain.AvengerResult
+import com.hightech.cryptoapp.domain.Unexpected
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -9,7 +9,9 @@ interface AvengerStore {
 }
 
 class LoadAvengerLocalUseCase(private val store: AvengerStore) {
-    fun load(): Flow<AvengerResult> = flow {
-        store.get()
+    fun load(): Flow<Exception> = flow {
+        store.get().collect {
+            emit(Unexpected())
+        }
     }
 }
