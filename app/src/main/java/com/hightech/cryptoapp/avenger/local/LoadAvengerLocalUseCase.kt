@@ -1,9 +1,9 @@
-package com.hightech.cryptoapp.local
+package com.hightech.cryptoapp.avenger.local
 
-import com.hightech.cryptoapp.domain.Avenger
-import com.hightech.cryptoapp.domain.AvengerResult
-import com.hightech.cryptoapp.domain.LoadAvengerUseCase
-import com.hightech.cryptoapp.domain.Unexpected
+import com.hightech.cryptoapp.avenger.domain.Avenger
+import com.hightech.cryptoapp.avenger.domain.AvengerResult
+import com.hightech.cryptoapp.avenger.domain.LoadAvengerUseCase
+import com.hightech.cryptoapp.avenger.domain.Unexpected
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

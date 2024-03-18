@@ -1,12 +1,12 @@
-package com.hightech.cryptoapp.presentation
+package com.hightech.cryptoapp.avenger.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hightech.cryptoapp.domain.Avenger
-import com.hightech.cryptoapp.domain.AvengerResult
-import com.hightech.cryptoapp.domain.LoadAvengerUseCase
-import com.hightech.cryptoapp.domain.Unexpected
-import com.hightech.cryptoapp.local.LocalAvenger
+import com.hightech.cryptoapp.avenger.domain.Avenger
+import com.hightech.cryptoapp.avenger.domain.AvengerResult
+import com.hightech.cryptoapp.avenger.domain.LoadAvengerUseCase
+import com.hightech.cryptoapp.avenger.domain.Unexpected
+import com.hightech.cryptoapp.avenger.local.LocalAvenger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,6 +16,10 @@ import kotlinx.coroutines.launch
 class AvengerViewModel(private val useCase: LoadAvengerUseCase): ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
     val uiState: StateFlow<UiState> = _uiState.asStateFlow()
+
+    init {
+        loadAvengers()
+    }
 
     fun loadAvengers() {
         viewModelScope.launch {

@@ -1,9 +1,9 @@
 package com.hightech.cryptoapp
 
 import app.cash.turbine.test
-import com.hightech.cryptoapp.infra.LocalAvengerStore
-import com.hightech.cryptoapp.local.LocalAvenger
-import com.hightech.cryptoapp.local.LocalResult
+import com.hightech.cryptoapp.avenger.infra.LocalAvengerStore
+import com.hightech.cryptoapp.avenger.local.LocalAvenger
+import com.hightech.cryptoapp.avenger.local.LocalResult
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before

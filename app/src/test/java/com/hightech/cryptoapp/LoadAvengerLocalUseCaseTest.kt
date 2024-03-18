@@ -1,13 +1,13 @@
 package com.hightech.cryptoapp
 
 import app.cash.turbine.test
-import com.hightech.cryptoapp.domain.Avenger
-import com.hightech.cryptoapp.domain.AvengerResult
-import com.hightech.cryptoapp.domain.Unexpected
-import com.hightech.cryptoapp.local.AvengerStore
-import com.hightech.cryptoapp.local.LoadAvengerLocalUseCase
-import com.hightech.cryptoapp.local.LocalAvenger
-import com.hightech.cryptoapp.local.LocalResult
+import com.hightech.cryptoapp.avenger.domain.Avenger
+import com.hightech.cryptoapp.avenger.domain.AvengerResult
+import com.hightech.cryptoapp.avenger.domain.Unexpected
+import com.hightech.cryptoapp.avenger.local.AvengerStore
+import com.hightech.cryptoapp.avenger.local.LoadAvengerLocalUseCase
+import com.hightech.cryptoapp.avenger.local.LocalAvenger
+import com.hightech.cryptoapp.avenger.local.LocalResult
 import io.mockk.clearAllMocks
 import io.mockk.confirmVerified
 import io.mockk.every

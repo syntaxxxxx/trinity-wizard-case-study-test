@@ -1,4 +1,4 @@
-package com.hightech.cryptoapp.local
+package com.hightech.cryptoapp.avenger.local
 
 import kotlinx.coroutines.flow.Flow
 

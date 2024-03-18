@@ -1,6 +1,6 @@
-package com.hightech.cryptoapp.infra
+package com.hightech.cryptoapp.avenger.domain
 
-data class LocalAvengerEntity(
+data class Avenger(
     val id: String,
     val name: String,
     val rating: String,

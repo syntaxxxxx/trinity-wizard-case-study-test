@@ -1,4 +1,4 @@
-package com.hightech.cryptoapp.presentation
+package com.hightech.cryptoapp.avenger.presentation
 
 data class UiState(
     val isLoading: Boolean = false,

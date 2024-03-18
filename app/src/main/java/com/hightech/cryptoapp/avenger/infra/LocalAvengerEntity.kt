@@ -1,6 +1,6 @@
-package com.hightech.cryptoapp.presentation
+package com.hightech.cryptoapp.avenger.infra
 
-data class AvengerItemViewModel(
+data class LocalAvengerEntity(
     val id: String,
     val name: String,
     val rating: String,

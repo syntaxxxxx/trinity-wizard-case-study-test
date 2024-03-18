@@ -1,4 +1,4 @@
-package com.hightech.cryptoapp.domain
+package com.hightech.cryptoapp.avenger.domain
 
 import kotlinx.coroutines.flow.Flow
 import kotlin.Exception

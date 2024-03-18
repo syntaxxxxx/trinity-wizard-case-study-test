@@ -1,9 +1,9 @@
-package com.hightech.cryptoapp.infra
+package com.hightech.cryptoapp.avenger.infra
 
 import com.hightech.cryptoapp.R
-import com.hightech.cryptoapp.local.AvengerStore
-import com.hightech.cryptoapp.local.LocalAvenger
-import com.hightech.cryptoapp.local.LocalResult
+import com.hightech.cryptoapp.avenger.local.AvengerStore
+import com.hightech.cryptoapp.avenger.local.LocalAvenger
+import com.hightech.cryptoapp.avenger.local.LocalResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

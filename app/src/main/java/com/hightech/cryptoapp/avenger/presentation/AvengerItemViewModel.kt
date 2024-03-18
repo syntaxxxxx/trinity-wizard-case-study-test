@@ -1,6 +1,6 @@
-package com.hightech.cryptoapp.domain
+package com.hightech.cryptoapp.avenger.presentation
 
-data class Avenger(
+data class AvengerItemViewModel(
     val id: String,
     val name: String,
     val rating: String,
