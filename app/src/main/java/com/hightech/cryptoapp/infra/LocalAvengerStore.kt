@@ -43,8 +43,8 @@ private fun List<LocalAvengerEntity>.toModels(): List<LocalAvenger> {
     return map {
         LocalAvenger(
             id = it.id,
-            name = it.id,
-            rating = it.id,
+            name = it.name,
+            rating = it.rating,
             image = it.image
         )
     }

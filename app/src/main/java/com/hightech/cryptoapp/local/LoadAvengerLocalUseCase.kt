@@ -11,8 +11,8 @@ class LoadAvengerLocalUseCase(private val store: AvengerStore) {
         store.get().collect { result ->
             when (result) {
                 is LocalResult.Success -> {
-                    val contacts = result.data.toModels()
-                    emit(AvengerResult.Success(avengers = contacts))
+                    val avengers = result.data.toModels()
+                    emit(AvengerResult.Success(avengers = avengers))
                 }
 
                 is LocalResult.Failure -> {
