@@ -46,9 +46,9 @@ Then the app should display the latest avenger from local
 
 ### Avenger
 
-| Property | Type             |
-|----------|------------------|
-| `id`     | `String`         |
-| `name`   | `String`         |
-| `rating` | `String`         |
-| `image`  | `Int` (optional) |
+| Property | Type     |
+|----------|----------|
+| `id`     | `String` |
+| `name`   | `String` |
+| `rating` | `String` |
+| `image`  | `Int`    |
