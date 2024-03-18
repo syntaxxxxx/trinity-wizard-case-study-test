@@ -2,9 +2,11 @@ package com.hightech.cryptoapp.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hightech.cryptoapp.domain.Avenger
 import com.hightech.cryptoapp.domain.AvengerResult
 import com.hightech.cryptoapp.domain.LoadAvengerUseCase
 import com.hightech.cryptoapp.domain.Unexpected
+import com.hightech.cryptoapp.local.LocalAvenger
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -24,7 +26,12 @@ class AvengerViewModel(private val useCase: LoadAvengerUseCase): ViewModel() {
             useCase.load().collect { result ->
                 _uiState.update {
                     when(result) {
-                        is AvengerResult.Success -> TODO()
+                        is AvengerResult.Success -> {
+                            it.copy(
+                                isLoading = false,
+                                avengers = result.avengers.toModels()
+                            )
+                        }
 
                         is AvengerResult.Failure -> {
                             it.copy(
@@ -41,6 +48,18 @@ class AvengerViewModel(private val useCase: LoadAvengerUseCase): ViewModel() {
                     }
                 }
             }
+        }
+    }
+
+
+    private fun List<Avenger>.toModels(): List<AvengerItemViewModel> {
+        return map {
+            AvengerItemViewModel(
+                id = it.id,
+                name = it.name,
+                rating = it.rating,
+                image = it.image
+            )
         }
     }
 }
