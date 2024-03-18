@@ -1,7 +1,9 @@
 package com.hightech.cryptoapp
 
 import app.cash.turbine.test
+import com.hightech.cryptoapp.domain.AvengerResult
 import com.hightech.cryptoapp.domain.LoadAvengerUseCase
+import com.hightech.cryptoapp.domain.Unexpected
 import com.hightech.cryptoapp.presentation.AvengerViewModel
 import io.mockk.confirmVerified
 import io.mockk.every
@@ -91,6 +93,27 @@ class AvengerViewModelTest {
         sut.uiState.take(1).test {
             val receivedResult = awaitItem()
             Assert.assertEquals(true, receivedResult.isLoading)
+            awaitComplete()
+        }
+
+        verify(exactly = 1) {
+            useCase.load()
+        }
+
+        confirmVerified(useCase)
+    }
+
+    @Test
+    fun testLoadUnexpectedShowsUnexpectedError() = runBlocking {
+        every {
+            useCase.load()
+        } returns flowOf(AvengerResult.Failure(Unexpected()))
+
+        sut.loadAvengers()
+
+        sut.uiState.take(1).test {
+            val receivedResult = awaitItem()
+            Assert.assertEquals("Unexpected Error", receivedResult.failed)
             awaitComplete()
         }
 
