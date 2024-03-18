@@ -10,6 +10,6 @@ sealed class AvengerResult {
     data class Failure(val exception: Exception) : AvengerResult()
 }
 
-interface LoadContactsUseCase {
+interface LoadAvengerUseCase {
     fun load(): Flow<AvengerResult>
 }

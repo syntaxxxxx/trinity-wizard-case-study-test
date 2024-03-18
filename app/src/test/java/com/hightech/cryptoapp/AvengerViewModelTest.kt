@@ -1,5 +1,9 @@
 package com.hightech.cryptoapp
 
+import com.hightech.cryptoapp.domain.LoadAvengerUseCase
+import io.mockk.confirmVerified
+import io.mockk.spyk
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,6 +34,7 @@ class ContactsViewModel {
 }
 
 class ContactsViewModelTest {
+    private val useCase = spyk<LoadAvengerUseCase>()
     private lateinit var sut: ContactsViewModel
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -47,5 +52,14 @@ class ContactsViewModelTest {
         Assert.assertFalse(uiState.isLoading)
         Assert.assertTrue(uiState.avenger.isEmpty())
         assert(uiState.failed.isEmpty())
+    }
+
+    @Test
+    fun testInitDoesNotLoad() {
+        verify(exactly = 0) {
+            useCase.load()
+        }
+
+        confirmVerified(useCase)
     }
 }
